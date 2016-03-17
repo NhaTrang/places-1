@@ -1,6 +1,13 @@
 class Place
   include Mongoid::Document
 
+  attr_accessor :longitude, :latitude
+
+  #Init variables
+  def initialize(params={})
+  	@location = Point.new(params[:lat][:lng])
+  end
+
   #Shortcut to default database
   def self.mongo_client
   	db = Mongo::Client.new('mongodb://localhost:27017')
@@ -16,4 +23,5 @@ class Place
   	docs = JSON.parse(file.read)
   	collection.insert_many(docs)
   end
+
 end
