@@ -10,4 +10,10 @@ class Place
   def self.collection
   	self.mongo_client['places']
   end
+
+  #Loads JSON document and places info into places document
+  def self.load_all(file)
+  	docs = JSON.parse(file.read)
+  	collection.insert_many(docs)
+  end
 end
