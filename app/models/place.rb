@@ -1,11 +1,9 @@
 class Place
   include Mongoid::Document
 
-  attr_accessor :longitude, :latitude
-
   #Init variables
   def initialize(params={})
-  	@location = Point.new(params[:lat][:lng])
+  	@location = Point.new(params[:geometry][:geolocation])
   end
 
   #Shortcut to default database
