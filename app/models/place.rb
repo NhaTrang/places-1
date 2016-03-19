@@ -1,5 +1,6 @@
 class Place
   include Mongoid::Document
+  attr_accessor :longitude, :latitude
 
   #Init variables
   def initialize(params={})
