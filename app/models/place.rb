@@ -1,10 +1,14 @@
 class Place
   include Mongoid::Document
-  attr_accessor :longitude, :latitude
+  attr_accessor :id, :formatted_address, :location, :address_components
+
 
   #Init variables
   def initialize(params={})
-  	@location = Point.new(params[:geometry][:geolocation])
+    @id = params[:_id].to_s
+    @formatted_address = params[:formatted_address]
+    @location = Point.new(params[:geometry][:geolocation])
+    @address_components = params[:address_components].map{ |a| AddressComponent.new(a)}
   end
 
   #Shortcut to default database

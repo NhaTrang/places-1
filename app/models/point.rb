@@ -4,11 +4,11 @@ class Point
   #initialize Point class
   def initialize(params)
     if !params[:coordinates].nil?
-    	@longitude = params[:coordinates][0]
-    	@latitude = params[:coordinates][1]
+      @longitude = params[:coordinates][0]
+      @latitude = params[:coordinates][1]
     else
-    	@longitude = params[:lng]
-    	@latitude = params[:lat]
+      @longitude = params[:lng]
+      @latitude = params[:lat]
     end
   end
 
