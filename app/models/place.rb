@@ -27,8 +27,8 @@ class Place
   end
 
   #Finds collection by short name
-  def find_by_short_name(short_name)
-
+  def self.find_by_short_name(short_name)
+    collection.find(:'address_components.short_name' => short_name)
   end
 
   #Returns collection of place objects
