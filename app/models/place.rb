@@ -32,22 +32,22 @@ class Place
   end
 
   #Returns collection of place objects
-  def to_places
+  def self.to_places
 
   end
   
   #Finds instance of place based on id
-  def find(id)
+  def self.find(id)
 
   end
 
   #Returns collection of all documents as places
-  def all(offset, limit)
+  def self.all(offset, limit)
 
   end
 
   #Delete document based on id
-  def destroy(id)
+  def self.destroy(id)
 
   end
 
