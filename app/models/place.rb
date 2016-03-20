@@ -2,7 +2,6 @@ class Place
   include Mongoid::Document
   attr_accessor :id, :formatted_address, :location, :address_components
 
-
   #Init variables
   def initialize(params={})
     @id = params[:_id].to_s
@@ -25,6 +24,31 @@ class Place
   def self.load_all(file)
   	docs = JSON.parse(file.read)
   	collection.insert_many(docs)
+  end
+
+  #Finds collection by short name
+  def find_by_short_name(short_name)
+
+  end
+
+  #Returns collection of place objects
+  def to_places
+
+  end
+  
+  #Finds instance of place based on id
+  def find(id)
+
+  end
+
+  #Returns collection of all documents as places
+  def all(offset, limit)
+
+  end
+
+  #Delete document based on id
+  def destroy(id)
+
   end
 
 end
