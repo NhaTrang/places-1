@@ -32,8 +32,10 @@ class Place
   end
 
   #Returns collection of place objects
-  def self.to_places
-
+  def self.to_places(places)
+    places.map do |place|
+      Place.new(place)
+    end
   end
   
   #Finds instance of place based on id
