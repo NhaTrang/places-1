@@ -38,7 +38,14 @@ class Place
   
   #Finds instance of place based on id
   def self.find(id)
+    id = BSON::ObjectId.from_string(id)
+    doc = collection.find(:_id => id).first
 
+    if doc.nil?
+      return nil
+    else
+      return Place.new(doc)
+    end
   end
 
   #Returns collection of all documents as places
