@@ -51,8 +51,10 @@ class Place
   end
 
   #Returns collection of all documents as places
-  def self.all(offset, limit)
-
+  def self.all(offset = 0, limit = nil)
+    result = collection.find({}).skip(offset)
+    result = result.limit(limit) if !limit.nil?
+    result = to_places(result)
   end
 
   #Delete document based on id
