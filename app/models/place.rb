@@ -57,9 +57,10 @@ class Place
     result = to_places(result)
   end
 
-  #Delete document based on id
-  def self.destroy(id)
-
+  #Delete document
+  def destroy
+    id = BSON::ObjectId.from_string(@id)
+    self.class.collection.delete_one(:_id => id)
   end
 
 end
