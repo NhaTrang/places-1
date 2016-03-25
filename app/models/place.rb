@@ -85,4 +85,33 @@ class Place
     collection.find.aggregate(prototype)
   end
 
+  #Return array of country names from collection
+  def self.get_country_names
+    prototype = [
+      {
+        :$unwind => '$address_components'
+      },
+      {
+        :$project => {
+          :'address_components.long_name' => 1,
+          :'address_components.types' => 1
+        }
+      },
+      {
+        :$match => {
+          :"address_components.types" => "country"
+        }
+      },
+      {
+        :$group => {
+          :"_id" => '$address_components.long_name'
+        }
+      }
+    ]
+
+    result = collection.find.aggregate(prototype)
+
+    result.to_a.map {|doc| doc[:_id]}
+  end
+
 end
