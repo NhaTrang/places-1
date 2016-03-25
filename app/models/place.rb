@@ -114,4 +114,24 @@ class Place
     result.to_a.map {|doc| doc[:_id]}
   end
 
+  #Find id of country code
+  def self.find_ids_by_country_code(country_code)
+    prototype = [
+      {
+        :$match => {
+          :"address_components.types" => "country",
+          :"address_components.short_name" => country_code
+        }
+      },
+      {
+        :$project => {
+          :_id => 1
+        }
+      }
+    ]
+
+    result = collection.find.aggregate(prototype)
+    result.to_a.map {|doc| doc[:_id].to_s }
+  end
+
 end
