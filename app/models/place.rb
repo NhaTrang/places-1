@@ -63,4 +63,26 @@ class Place
     self.class.collection.delete_one(:_id => id)
   end
 
+  #Gets collection of address components from document
+  def self.get_address_components(sort = nil, offset = 0, limit = nil)
+    prototype = [
+      {
+        :$unwind => '$address_components'
+      },
+      {
+        :$project => {
+          :address_components => 1,
+          :formatted_address => 1,
+          :'geometry.geolocation' => 1
+        }
+      }
+    ]
+
+    prototype << {:$sort => sort} if !sort.nil?
+    prototype << {:$skip => offset} if offset != 0
+    prototype << {:$limit => limit} if !limit.nil?
+
+    collection.find.aggregate(prototype)
+  end
+
 end
