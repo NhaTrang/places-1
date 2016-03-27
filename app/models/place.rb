@@ -1,5 +1,6 @@
 class Place
   include Mongoid::Document
+  include ActiveModel::Model
   attr_accessor :id, :formatted_address, :location, :address_components
 
   #Init variables
