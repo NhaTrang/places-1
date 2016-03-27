@@ -8,7 +8,7 @@ class Place
     @id = params[:_id].to_s
     @formatted_address = params[:formatted_address]
     @location = Point.new(params[:geometry][:geolocation])
-    @address_components = params[:address_components].map{ |a| AddressComponent.new(a)}
+    @address_components = params[:address_components].map{ |a| AddressComponent.new(a)} if !params[:address_components].nil?
   end
 
   #Shortcut to default database
@@ -157,6 +157,12 @@ class Place
     }
 
     collection.find(query)
+  end
+
+  #Locates all places by near
+  def near(max_meters=nil)
+    result = self.class.near(@location, max_meters)
+    self.class.to_places(result)
   end
 
 end
