@@ -7,4 +7,13 @@ class Photo
   def self.mongo_client
   	db = Mongo::Client.new('mongodb://localhost:27017')
   end
+
+  #Initialize instance methods of photo
+  def initialize(hash={})
+  	@id = hash[:_id].to_s if !hash[:_id].nil?
+  	if !hash[:metadata].nil?
+  		@location = Point.new(hash[:metadata][:location]) if !hash[:metadata][:location].nil?
+  		@place = hash[:metadata][:place]
+  	end
+  end
 end
