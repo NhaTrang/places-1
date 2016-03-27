@@ -1,5 +1,7 @@
 class Photo
   include Mongoid::Document
+  attr_accessor :id, :location
+  attr_writer :contents
 
   #Shortcut to default database
   def self.mongo_client
