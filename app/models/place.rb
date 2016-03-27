@@ -135,4 +135,14 @@ class Place
     result.to_a.map {|doc| doc[:_id].to_s }
   end
 
+  #Create 2dsphere indexes for geometry.geolocation method
+  def self.create_indexes
+    collection.indexes.create_one(:'geometry.geolocation' => Mongo::Index::GEO2DSPHERE)
+  end
+
+  #Remove 2dspehre indexes
+  def self.remove_indexes
+    collection.indexes.drop_one('geometry.geolocation_2dsphere')
+  end
+
 end
