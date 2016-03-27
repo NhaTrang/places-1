@@ -16,4 +16,9 @@ class Photo
   		@place = hash[:metadata][:place]
   	end
   end
+
+  #Checks if instance from GridFS exists
+  def persisted?
+  	!@id.nil?
+  end
 end
