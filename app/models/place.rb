@@ -179,4 +179,10 @@ class Place
 
     return result
   end
+
+  #Persisted method to check if object was saved
+  def persisted?
+    @id.nil?
+  end
+  
 end
