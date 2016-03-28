@@ -70,4 +70,16 @@ class Photo
   	end
   end
 
+  #Returns data contents of file
+  def contents
+  	doc = self.class.mongo_client.database.fs.find_one(:_id => BSON::ObjectId(@id))
+  	if doc
+  	  buffer = ""
+  	  doc.chunks.reduce([]) do |x, chunk|
+  	    buffer << chunk.data.data
+  	  end
+  	  return buffer
+  	end
+  end
+
 end
