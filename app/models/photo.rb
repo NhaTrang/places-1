@@ -100,9 +100,20 @@ class Photo
 
   #Place getter
   def place
-  	if @place.nil?
-  		Place.find(@place.to_s)
-  	end
+    if !@place.nil?
+    	Place.find(@place.to_s)
+    end
+  end
+
+  #Place setter
+  def place=(place)
+    if place.class == Place
+    	@place = BSON::ObjectId.from_string(place.id)
+    elsif place.class == String
+    	@place = BSON::ObjectId.from_string(place)
+    else
+    	@place = place
+    end
   end
 
 end
