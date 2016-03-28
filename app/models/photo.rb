@@ -98,4 +98,11 @@ class Photo
   	end
   end
 
+  #Place getter
+  def place
+  	if @place.nil?
+  		Place.find(@place.to_s)
+  	end
+  end
+
 end
