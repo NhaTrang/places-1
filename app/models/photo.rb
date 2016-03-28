@@ -49,4 +49,15 @@ class Photo
         })
     end
   end
+
+  #Returns photos
+  def self.all(skip = 0, limit = nil)
+  	docs = mongo_client.database.fs.find({}).skip(skip)
+  	docs = docs.limit(limit) if !limit.nil?
+
+  	docs.map do |doc|
+  		Photo.new(doc)
+  	end
+  end
+
 end
