@@ -82,4 +82,9 @@ class Photo
   	end
   end
 
+  #Delete object from Grid
+  def destroy
+  	self.class.mongo_client.database.fs.find(:_id => BSON::ObjectId(@id)).delete_one
+  end
+
 end
