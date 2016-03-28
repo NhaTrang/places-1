@@ -21,4 +21,32 @@ class Photo
   def persisted?
   	!@id.nil?
   end
+
+  #Saves or updates photos
+  def save
+    if !persisted?
+      gps = EXIFR::JPEG.new(@contents).gps
+      description = {}
+      description[:content_type] = 'image/jpeg'
+      description[:metadata] = {}
+      @location = Point.new(:lng => gps.longitude, :lat => gps.latitude)
+      description[:metadata][:location] = @location.to_hash
+      description[:metadata][:place] = @place
+
+      if @contents
+        @contents.rewind
+        grid_file = Mongo::Grid::File.new(@contents.read, description)
+        id = self.class.mongo_client.database.fs.insert_one(grid_file)
+        @id = id.to_s
+      end
+    else
+      self.class.mongo_client.database.fs.find(:_id => BSON::ObjectId(@id))
+        .update_one(:$set => {
+          :metadata => {
+            :location => @location.to_hash,
+            :place => @place
+          }
+        })
+    end
+  end
 end
