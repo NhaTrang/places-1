@@ -60,4 +60,14 @@ class Photo
   	end
   end
 
+  #Finds a single photo based on id
+  def self.find(id)
+  	doc = mongo_client.database.fs.find(:_id => BSON::ObjectId(id)).first
+  	if doc.nil?
+  		return nil
+  	else
+  		return Photo.new(doc)
+  	end
+  end
+
 end
