@@ -116,4 +116,10 @@ class Photo
     end
   end
 
+  #Finds photo for place id
+  def self.find_photos_for_place(place_id)
+  	place_id = BSON::ObjectId.from_string(place_id.to_s)
+  	mongo_client.database.fs.find(:'metadata.place' => place_id)
+  end
+
 end
